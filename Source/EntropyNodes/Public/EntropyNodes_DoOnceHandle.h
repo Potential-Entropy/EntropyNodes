@@ -2,7 +2,7 @@
 
 /**
  * Handle for a DoOnce.<br>
- * Handles need to be kept alive to keep their state!<br>
+ * Handles need to be kept alive to keep their state!
  */
 struct FDoOnceHandle
 {
@@ -28,4 +28,6 @@ public:
 	 * @return The handle it was executed on (returned for support for builder pattern like stuff)
 	 */
 	FDoOnceHandle& Reset();
+
+	bool IsOpen();
 };

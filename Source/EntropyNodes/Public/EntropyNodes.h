@@ -13,3 +13,6 @@ public:
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
 };
+
+#include "EntropyNodes_DoOnceHandle.h"
+#include "EntropyNodes_FlipFlopHandle.h"
