@@ -15,7 +15,7 @@ public:
 	 * @param Function The function to execute by Do()
 	 * @param bStartClosed Whether we start closed
 	 */
-	explicit FDoOnceHandle(const TFunction<void()>& Function, bool bStartClosed = false);
+	explicit FDoOnceHandle(const TFunction<void()>& Function, const bool bStartClosed = false);
 
 	/**
 	 * Execute the assigned function if we are open

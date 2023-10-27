@@ -1,6 +1,6 @@
 ﻿#include "DoOnceHandle.h"
 
-FDoOnceHandle::FDoOnceHandle(const TFunction<void()>& Function, bool bStartClosed)
+FDoOnceHandle::FDoOnceHandle(const TFunction<void()>& Function, const bool bStartClosed)
 	: Function(Function),
 	  bOpen(!bStartClosed)
 {
