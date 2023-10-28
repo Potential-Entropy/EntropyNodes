@@ -1,8 +1,8 @@
 ﻿#include "EntropyNodes_DoOnceHandle.h"
 
 FDoOnceHandle::FDoOnceHandle(const TFunction<void()>& Function, const bool bStartClosed)
-	: Function(Function),
-	  bOpen(!bStartClosed)
+	: Function{Function},
+	  bOpen{!bStartClosed}
 {
 }
 

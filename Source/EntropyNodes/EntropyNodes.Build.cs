@@ -37,7 +37,8 @@ public class EntropyNodes : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"Slate",
-				"SlateCore",
+				"SlateCore", 
+				"EntropyNodes_Test"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

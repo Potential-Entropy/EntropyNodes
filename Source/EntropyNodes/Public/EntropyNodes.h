@@ -16,3 +16,5 @@ public:
 
 #include "EntropyNodes_DoOnceHandle.h"
 #include "EntropyNodes_FlipFlopHandle.h"
+#include "EntropyNodes_GateHandle.h"
+#include "EntropyNodes_MultiGateHandle.h"

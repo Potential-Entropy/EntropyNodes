@@ -18,6 +18,11 @@
 			"Name": "EntropyNodes",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "EntropyNodes_Test",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
 		}
 	]
 }
