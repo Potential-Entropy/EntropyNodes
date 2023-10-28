@@ -17,8 +17,10 @@ void AEntropyNodesDebugActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	static FMultiGateHandle Handle{[]{}, []{}, []{}};
-	Handle.Execute();
+	static FMultiGateHandle NormalHandle{[]{}, []{}, []{}};
+	NormalHandle.Execute();
+
+	static FRandomMultiGateHandle RandomHandle{[]{}, []{}};
 }
 
 // Called every frame

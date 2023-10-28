@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <array>
+#include <tuple>
 
 /**
  * A class mimicking the behaviour of the multigate Blueprint node.<br>
@@ -14,7 +15,7 @@ struct TMultiGateHandle
 {
 private:
 	std::array<TFunction<void()>, Size> Functions;
-	std::conditional_t<bRandom, void, int> CurrentIndex;
+	std::conditional_t<bRandom, std::tuple<>, int> CurrentIndex;
 
 public:
 	/**
