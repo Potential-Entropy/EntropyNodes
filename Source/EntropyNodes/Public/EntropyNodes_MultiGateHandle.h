@@ -22,7 +22,7 @@ public:
 	 * @param Functions The functions to be executed
 	 */
 	template <std::convertible_to<TFunction<void()>> ...T>
-	TMultiGateHandle(T... Functions);
+	explicit TMultiGateHandle(const T&... Functions);
 
 	/**
 	 * Executes a function specified by the behaviour and the state of this gate
@@ -38,15 +38,15 @@ public:
 
 template <bool bLoop, bool bRandom, int Size>
 template <std::convertible_to<TFunction<void()>> ... T>
-TMultiGateHandle<bLoop, bRandom, Size>::TMultiGateHandle(T... Functions)
+TMultiGateHandle<bLoop, bRandom, Size>::TMultiGateHandle(const T&... Functions)
 	: Functions{Functions...}
 {
 	static_assert(!(bLoop && bRandom), "You cannot loop in a random multigate!");
 }
 
-// Template deduction rule
+// Template deduction rule for the constructor
 template <bool bLoop = true, bool bRandom = false, std::convertible_to<TFunction<void()>> ... T>
-TMultiGateHandle(T... Functions) -> TMultiGateHandle<bLoop, bRandom, sizeof...(T)>;
+TMultiGateHandle(const T&...) -> TMultiGateHandle<bLoop, bRandom, sizeof...(T)>;
 
 template <bool bLoop, bool bRandom, int Size>
 TMultiGateHandle<bLoop, bRandom, Size>& TMultiGateHandle<bLoop, bRandom, Size>::Execute()
@@ -84,20 +84,47 @@ void TMultiGateHandle<bLoop, bRandom, Size>::Reset()
 }
 
 /**
- * Alias for TMultiGateHandle that loops, i.e., starts at index 0 ans returns to index 0 when the last function was called
+ * Wrapper for TMultiGateHandle that loops, i.e., starts at index 0 ans returns to index 0 when the last function was called
  */
 template <int Size>
-using FMultiGateHandle = TMultiGateHandle<true, false, Size>;
+struct FMultiGateHandle : TMultiGateHandle<true, false, Size>
+{
+	template<std::convertible_to<TFunction<void()>> ...T>
+	explicit FMultiGateHandle(const T&... Functions) : TMultiGateHandle<true, false, Size>(Functions...)
+	{
+	}
+};
+
+template<std::convertible_to<TFunction<void()>> ...T>
+FMultiGateHandle(const T&... Functions) -> FMultiGateHandle<sizeof...(T)>;
 
 /**
- * Alias for TMultiGateHandle that starts at index 0 and stops once all functions were called until it is reset
+ * Wrapper for TMultiGateHandle that starts at index 0 and stops once all functions were called until it is reset
  */
 template <int Size>
-using FMultiGateNonLoopingHandle = TMultiGateHandle<false, false, Size>;
+struct FMultiGateNonLoopingHandle : TMultiGateHandle<false, false, Size>
+{
+	template<std::convertible_to<TFunction<void()>> ...T>
+	explicit FMultiGateNonLoopingHandle(const T&... Functions) : TMultiGateHandle<false, false, Size>(Functions...)
+	{
+	}
+};
+
+template<std::convertible_to<TFunction<void()>> ...T>
+FMultiGateNonLoopingHandle(const T&... Functions) -> FMultiGateNonLoopingHandle<sizeof...(T)>;
 
 /**
- * Alias for TMultiGateHandle that randomizes execution.<br>
+ * Wrapper for TMultiGateHandle that randomizes execution.<br>
  * Calling reset on a FRandomMultiGateHandle does nothing.
  */
 template <int Size>
-using FRandomMultiGateHandle = TMultiGateHandle<false, true, Size>;
+struct FRandomMultiGateHandle : TMultiGateHandle<false, true, Size>
+{
+	template<std::convertible_to<TFunction<void()>> ...T>
+	explicit FRandomMultiGateHandle(const T&... Functions) : TMultiGateHandle<false, true, Size>(Functions...)
+	{
+	}
+};
+
+template<std::convertible_to<TFunction<void()>> ...T>
+FRandomMultiGateHandle(const T&... Functions) -> FRandomMultiGateHandle<sizeof...(T)>;

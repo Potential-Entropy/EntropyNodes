@@ -17,7 +17,7 @@ void AEntropyNodesDebugActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	static auto Handle = FMultiGateHandle{[]{}, []{}}.Execute();
+	static FMultiGateHandle Handle{[]{}, []{}, []{}};
 	Handle.Execute();
 }
 
